@@ -1,0 +1,13 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': '/Users/kirillaverkiev/Library/Developer/Xcode/DerivedData/NetRoute-gbzlqjrvtxeuahfzsrvwuyjhyiyv/Build/Products/Debug-iphoneos/NetRoute.framework/Modules'
+    'contents': [{
+      'type': 'file',
+      'name': 'module.modulemap',
+      'external-contents': '/Users/kirillaverkiev/Documents/NetRoute/build/NetRoute.build/Debug-iphoneos/NetRoute.build/unextended-module.modulemap',
+    }]
+  }]
+}

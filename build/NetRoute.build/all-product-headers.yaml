@@ -1,0 +1,33 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [
+    {
+      'type': 'directory',
+      'name': "/Users/kirillaverkiev/Library/Developer/Xcode/DerivedData/NetRoute-gbzlqjrvtxeuahfzsrvwuyjhyiyv/Build/Products/Release-iphoneos/NetRoute.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "NetRoute-Swift.h",
+          'external-contents': "/Users/kirillaverkiev/Library/Developer/Xcode/DerivedData/NetRoute-gbzlqjrvtxeuahfzsrvwuyjhyiyv/Build/Products/Release-iphoneos/NetRoute.framework/Headers/NetRoute-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "NetRoute.h",
+          'external-contents': "/Users/kirillaverkiev/Documents/NetRoute/NetRoute/NetRoute.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/kirillaverkiev/Library/Developer/Xcode/DerivedData/NetRoute-gbzlqjrvtxeuahfzsrvwuyjhyiyv/Build/Products/Release-iphoneos/NetRoute.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/kirillaverkiev/Documents/NetRoute/build/NetRoute.build/Release-iphoneos/NetRoute.build/module.modulemap"
+        }
+      ]
+    }
+  ]
+}

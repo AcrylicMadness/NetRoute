@@ -1,0 +1,337 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "NRResponse"
+provides-nominal:
+- "C8NetRoute10NRResponse"
+provides-member:
+- ["C8NetRoute10NRResponse", ""]
+provides-dynamic-lookup:
+- "stringValue"
+- "description"
+- "error"
+- "dictionaryValue"
+- "encoding"
+- "data"
+- "response"
+depends-top-level:
+- "NRResponse"
+- !private "print"
+- "NSError"
+- "AnyObject"
+- !private "NSDictionary"
+- !private "!="
+- "NSURLResponse"
+- !private "StringLiteralType"
+- "NRObject"
+- !private "NSJSONSerialization"
+- "String"
+- !private "UnicodeScalarType"
+- "Dictionary"
+- !private "+"
+- "NSData"
+- !private "+="
+- "NSUTF8StringEncoding"
+depends-member:
+- !private ["Ps9AnyObject", "JSONObjectWithData"]
+- !private ["Ps9AnyObject", "NSJSONSerialization"]
+- ["Ps9AnyObject", "NSUTF8StringEncoding"]
+- !private ["Ps9AnyObject", "String"]
+- ["Ps9AnyObject", "data"]
+- ["Ps9AnyObject", "description"]
+- ["Ps9AnyObject", "dictionaryValue"]
+- ["Ps9AnyObject", "encoding"]
+- ["Ps9AnyObject", "error"]
+- ["Ps9AnyObject", "init"]
+- !private ["Ps9AnyObject", "print"]
+- ["Ps9AnyObject", "response"]
+- ["Ps9AnyObject", "stringValue"]
+- ["Ps9AnyObject", ""]
+- !private ["Ps23ArrayLiteralConvertible", "MutableContainers"]
+- !private ["Sb", "_getBuiltinLogicValue"]
+- !private ["Sb", "deinit"]
+- !private ["Ps25BooleanLiteralConvertible", "_getBuiltinLogicValue"]
+- !private ["Ps11BooleanType", "_getBuiltinLogicValue"]
+- !private ["Ps11CVarArgType", "JSONObjectWithData"]
+- !private ["Ps11CVarArgType", "NSJSONSerialization"]
+- ["Ps11CVarArgType", "NSUTF8StringEncoding"]
+- !private ["Ps11CVarArgType", "String"]
+- ["Ps11CVarArgType", "data"]
+- ["Ps11CVarArgType", "description"]
+- ["Ps11CVarArgType", "dictionaryValue"]
+- ["Ps11CVarArgType", "encoding"]
+- ["Ps11CVarArgType", "error"]
+- ["Ps11CVarArgType", "init"]
+- !private ["Ps11CVarArgType", "print"]
+- ["Ps11CVarArgType", "response"]
+- ["Ps11CVarArgType", "stringValue"]
+- ["Ps11CVarArgType", ""]
+- !private ["Vs9Character", "deinit"]
+- !private ["Ps14CollectionType", "Generator"]
+- !private ["Ps10Comparable", "init"]
+- !private ["Ps28CustomDebugStringConvertible", "Generator"]
+- !private ["Ps28CustomDebugStringConvertible", "JSONObjectWithData"]
+- !private ["Ps28CustomDebugStringConvertible", "NSJSONSerialization"]
+- ["Ps28CustomDebugStringConvertible", "NSUTF8StringEncoding"]
+- ["Ps28CustomDebugStringConvertible", "Some"]
+- !private ["Ps28CustomDebugStringConvertible", "String"]
+- ["Ps28CustomDebugStringConvertible", "data"]
+- ["Ps28CustomDebugStringConvertible", "description"]
+- ["Ps28CustomDebugStringConvertible", "dictionaryValue"]
+- ["Ps28CustomDebugStringConvertible", "encoding"]
+- ["Ps28CustomDebugStringConvertible", "error"]
+- ["Ps28CustomDebugStringConvertible", "init"]
+- !private ["Ps28CustomDebugStringConvertible", "print"]
+- ["Ps28CustomDebugStringConvertible", "response"]
+- ["Ps28CustomDebugStringConvertible", "stringValue"]
+- ["Ps28CustomDebugStringConvertible", ""]
+- !private ["Ps23CustomStringConvertible", "Generator"]
+- !private ["Ps23CustomStringConvertible", "JSONObjectWithData"]
+- !private ["Ps23CustomStringConvertible", "NSJSONSerialization"]
+- ["Ps23CustomStringConvertible", "NSUTF8StringEncoding"]
+- !private ["Ps23CustomStringConvertible", "String"]
+- !private ["Ps23CustomStringConvertible", "_getBuiltinLogicValue"]
+- ["Ps23CustomStringConvertible", "data"]
+- ["Ps23CustomStringConvertible", "description"]
+- ["Ps23CustomStringConvertible", "dictionaryValue"]
+- ["Ps23CustomStringConvertible", "encoding"]
+- ["Ps23CustomStringConvertible", "error"]
+- ["Ps23CustomStringConvertible", "init"]
+- !private ["Ps23CustomStringConvertible", "print"]
+- ["Ps23CustomStringConvertible", "response"]
+- ["Ps23CustomStringConvertible", "stringValue"]
+- ["Ps23CustomStringConvertible", ""]
+- !private ["Vs10Dictionary", "Generator"]
+- !private ["Vs19DictionaryGenerator", "Element"]
+- !private ["Ps28DictionaryLiteralConvertible", "Generator"]
+- !private ["Sd", "deinit"]
+- !private ["Ps9Equatable", "JSONObjectWithData"]
+- !private ["Ps9Equatable", "MutableContainers"]
+- !private ["Ps9Equatable", "NSJSONSerialization"]
+- ["Ps9Equatable", "NSUTF8StringEncoding"]
+- !private ["Ps9Equatable", "String"]
+- !private ["Ps9Equatable", "_getBuiltinLogicValue"]
+- ["Ps9Equatable", "data"]
+- ["Ps9Equatable", "description"]
+- ["Ps9Equatable", "dictionaryValue"]
+- ["Ps9Equatable", "encoding"]
+- ["Ps9Equatable", "error"]
+- ["Ps9Equatable", "init"]
+- !private ["Ps9Equatable", "print"]
+- ["Ps9Equatable", "response"]
+- ["Ps9Equatable", "stringValue"]
+- ["Ps9Equatable", ""]
+- !private ["Ps41ExtendedGraphemeClusterLiteralConvertible", "init"]
+- !private ["Sf", "deinit"]
+- !private ["Ps13GeneratorType", "Element"]
+- !private ["Ps8Hashable", "JSONObjectWithData"]
+- !private ["Ps8Hashable", "NSJSONSerialization"]
+- ["Ps8Hashable", "NSUTF8StringEncoding"]
+- !private ["Ps8Hashable", "String"]
+- !private ["Ps8Hashable", "_getBuiltinLogicValue"]
+- ["Ps8Hashable", "data"]
+- ["Ps8Hashable", "description"]
+- ["Ps8Hashable", "dictionaryValue"]
+- ["Ps8Hashable", "encoding"]
+- ["Ps8Hashable", "error"]
+- ["Ps8Hashable", "init"]
+- !private ["Ps8Hashable", "print"]
+- ["Ps8Hashable", "response"]
+- ["Ps8Hashable", "stringValue"]
+- ["Ps8Hashable", ""]
+- !private ["Ps9Indexable", "Generator"]
+- !private ["Si", "deinit"]
+- !private ["Vs5Int16", "deinit"]
+- !private ["Vs5Int32", "deinit"]
+- !private ["Vs5Int64", "deinit"]
+- !private ["Vs4Int8", "deinit"]
+- !private ["Ps14MirrorPathType", "init"]
+- ["C8NetRoute8NRObject", "AnyObject"]
+- ["C8NetRoute8NRObject", "Dictionary"]
+- ["C8NetRoute8NRObject", "NSData"]
+- !private ["C8NetRoute8NRObject", "NSDictionary"]
+- ["C8NetRoute8NRObject", "NSError"]
+- !private ["C8NetRoute8NRObject", "NSJSONSerialization"]
+- ["C8NetRoute8NRObject", "NSURLResponse"]
+- ["C8NetRoute8NRObject", "NSUTF8StringEncoding"]
+- ["C8NetRoute8NRObject", "String"]
+- ["C8NetRoute8NRObject", "data"]
+- ["C8NetRoute8NRObject", "description"]
+- ["C8NetRoute8NRObject", "dictionaryValue"]
+- ["C8NetRoute8NRObject", "encoding"]
+- ["C8NetRoute8NRObject", "error"]
+- ["C8NetRoute8NRObject", "init"]
+- !private ["C8NetRoute8NRObject", "print"]
+- ["C8NetRoute8NRObject", "response"]
+- ["C8NetRoute8NRObject", "stringValue"]
+- ["C8NetRoute8NRObject", ""]
+- ["C8NetRoute10NRResponse", "AnyObject"]
+- ["C8NetRoute10NRResponse", "Dictionary"]
+- ["C8NetRoute10NRResponse", "NSData"]
+- !private ["C8NetRoute10NRResponse", "NSDictionary"]
+- ["C8NetRoute10NRResponse", "NSError"]
+- !private ["C8NetRoute10NRResponse", "NSJSONSerialization"]
+- ["C8NetRoute10NRResponse", "NSURLResponse"]
+- ["C8NetRoute10NRResponse", "NSUTF8StringEncoding"]
+- ["C8NetRoute10NRResponse", "String"]
+- ["C8NetRoute10NRResponse", "data"]
+- ["C8NetRoute10NRResponse", "deinit"]
+- ["C8NetRoute10NRResponse", "description"]
+- ["C8NetRoute10NRResponse", "dictionaryValue"]
+- ["C8NetRoute10NRResponse", "encoding"]
+- ["C8NetRoute10NRResponse", "error"]
+- ["C8NetRoute10NRResponse", "init"]
+- !private ["C8NetRoute10NRResponse", "print"]
+- ["C8NetRoute10NRResponse", "response"]
+- ["C8NetRoute10NRResponse", "stringValue"]
+- !private ["PSo8NSCoding", "init"]
+- !private ["PSo9NSCopying", "init"]
+- !private ["VSC20NSJSONReadingOptions", "MutableContainers"]
+- !private ["CSo19NSJSONSerialization", "JSONObjectWithData"]
+- !private ["PSo16NSMutableCopying", "init"]
+- ["CSo8NSObject", "AnyObject"]
+- ["CSo8NSObject", "Dictionary"]
+- !private ["CSo8NSObject", "JSONObjectWithData"]
+- ["CSo8NSObject", "NSData"]
+- !private ["CSo8NSObject", "NSDictionary"]
+- ["CSo8NSObject", "NSError"]
+- !private ["CSo8NSObject", "NSJSONSerialization"]
+- ["CSo8NSObject", "NSURLResponse"]
+- ["CSo8NSObject", "NSUTF8StringEncoding"]
+- ["CSo8NSObject", "String"]
+- ["CSo8NSObject", "data"]
+- ["CSo8NSObject", "description"]
+- ["CSo8NSObject", "dictionaryValue"]
+- ["CSo8NSObject", "encoding"]
+- ["CSo8NSObject", "error"]
+- ["CSo8NSObject", "init"]
+- !private ["CSo8NSObject", "print"]
+- ["CSo8NSObject", "response"]
+- ["CSo8NSObject", "stringValue"]
+- !private ["PSo16NSObjectProtocol", "JSONObjectWithData"]
+- !private ["PSo16NSObjectProtocol", "NSJSONSerialization"]
+- ["PSo16NSObjectProtocol", "NSUTF8StringEncoding"]
+- !private ["PSo16NSObjectProtocol", "String"]
+- ["PSo16NSObjectProtocol", "data"]
+- ["PSo16NSObjectProtocol", "description"]
+- ["PSo16NSObjectProtocol", "dictionaryValue"]
+- ["PSo16NSObjectProtocol", "encoding"]
+- ["PSo16NSObjectProtocol", "error"]
+- ["PSo16NSObjectProtocol", "init"]
+- !private ["PSo16NSObjectProtocol", "print"]
+- ["PSo16NSObjectProtocol", "response"]
+- ["PSo16NSObjectProtocol", "stringValue"]
+- ["PSo16NSObjectProtocol", ""]
+- !private ["PSo14NSSecureCoding", "init"]
+- !private ["CSo8NSString", "init"]
+- ["Ps21NilLiteralConvertible", "Some"]
+- !private ["Ps13OptionSetType", "MutableContainers"]
+- ["Sq", "Some"]
+- !private ["Sq", "deinit"]
+- !private ["Ps16OutputStreamType", "init"]
+- !private ["Ps16RawRepresentable", "MutableContainers"]
+- !private ["Ps12SequenceType", "Generator"]
+- !private ["Ps14SetAlgebraType", "MutableContainers"]
+- !private ["Vs12StaticString", "deinit"]
+- !private ["Ps10Streamable", "init"]
+- !private ["SS", "init"]
+- !private ["Ps30StringInterpolationConvertible", "init"]
+- !private ["Ps24StringLiteralConvertible", "init"]
+- !private ["Su", "deinit"]
+- !private ["Vs6UInt16", "deinit"]
+- !private ["Vs6UInt32", "deinit"]
+- !private ["Vs6UInt64", "deinit"]
+- !private ["Vs5UInt8", "deinit"]
+- !private ["Sc", "deinit"]
+- !private ["Ps31UnicodeScalarLiteralConvertible", "init"]
+- !private ["Ps33_BuiltinBooleanLiteralConvertible", "_getBuiltinLogicValue"]
+- !private ["Ps49_BuiltinExtendedGraphemeClusterLiteralConvertible", "init"]
+- !private ["Ps32_BuiltinStringLiteralConvertible", "init"]
+- !private ["Ps37_BuiltinUTF16StringLiteralConvertible", "init"]
+- !private ["Ps39_BuiltinUnicodeScalarLiteralConvertible", "init"]
+- !private ["Ps21_ObjectiveCBridgeable", "Generator"]
+- !private ["Ps21_ObjectiveCBridgeable", "_getBuiltinLogicValue"]
+- !private ["Ps21_ObjectiveCBridgeable", "init"]
+- !private ["Vs26_OptionalNilComparisonType", "deinit"]
+- !private ["Ps12_Reflectable", "Generator"]
+- ["Ps12_Reflectable", "Some"]
+- !private ["Ps12_Reflectable", "_getBuiltinLogicValue"]
+- !private ["Ps12_Reflectable", "init"]
+depends-nominal:
+- "Ps9AnyObject"
+- !private "Ps23ArrayLiteralConvertible"
+- !private "Sb"
+- !private "Ps25BooleanLiteralConvertible"
+- !private "Ps11BooleanType"
+- "Ps11CVarArgType"
+- !private "Vs9Character"
+- !private "Ps14CollectionType"
+- !private "Ps10Comparable"
+- "Ps28CustomDebugStringConvertible"
+- "Ps23CustomStringConvertible"
+- !private "Vs10Dictionary"
+- !private "Vs19DictionaryGenerator"
+- !private "Ps28DictionaryLiteralConvertible"
+- !private "Sd"
+- "Ps9Equatable"
+- !private "Ps41ExtendedGraphemeClusterLiteralConvertible"
+- !private "Sf"
+- !private "Ps13GeneratorType"
+- "Ps8Hashable"
+- !private "Ps9Indexable"
+- !private "Si"
+- !private "Vs5Int16"
+- !private "Vs5Int32"
+- !private "Vs5Int64"
+- !private "Vs4Int8"
+- !private "Ps14MirrorPathType"
+- "C8NetRoute8NRObject"
+- "C8NetRoute10NRResponse"
+- !private "PSo8NSCoding"
+- !private "PSo9NSCopying"
+- !private "VSC20NSJSONReadingOptions"
+- !private "CSo19NSJSONSerialization"
+- !private "PSo16NSMutableCopying"
+- "CSo8NSObject"
+- "PSo16NSObjectProtocol"
+- !private "PSo14NSSecureCoding"
+- !private "CSo8NSString"
+- "Ps21NilLiteralConvertible"
+- !private "Ps13OptionSetType"
+- "Sq"
+- !private "Ps16OutputStreamType"
+- !private "Ps16RawRepresentable"
+- !private "Ps12SequenceType"
+- !private "Ps14SetAlgebraType"
+- !private "Vs12StaticString"
+- !private "Ps10Streamable"
+- !private "SS"
+- !private "Ps30StringInterpolationConvertible"
+- !private "Ps24StringLiteralConvertible"
+- !private "Su"
+- !private "Vs6UInt16"
+- !private "Vs6UInt32"
+- !private "Vs6UInt64"
+- !private "Vs5UInt8"
+- !private "Sc"
+- !private "Ps31UnicodeScalarLiteralConvertible"
+- !private "Ps33_BuiltinBooleanLiteralConvertible"
+- !private "Ps49_BuiltinExtendedGraphemeClusterLiteralConvertible"
+- !private "Ps32_BuiltinStringLiteralConvertible"
+- !private "Ps37_BuiltinUTF16StringLiteralConvertible"
+- !private "Ps39_BuiltinUnicodeScalarLiteralConvertible"
+- !private "Ps21_ObjectiveCBridgeable"
+- !private "Vs26_OptionalNilComparisonType"
+- "Ps12_Reflectable"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/Swift.swiftmodule"
+- "/Users/kirillaverkiev/Documents/NetRoute/NetRoute/NetRoute.h"
+- "/Users/kirillaverkiev/Documents/NetRoute/build/NetRoute.build/Release-iphoneos/NetRoute.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/CoreImage.swiftmodule"
+interface-hash: "3913e50d3f24976e51cea7be0fe4f61f"

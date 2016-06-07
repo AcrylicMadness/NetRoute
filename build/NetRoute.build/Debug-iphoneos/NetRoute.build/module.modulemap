@@ -1,0 +1,10 @@
+framework module NetRoute {
+  umbrella header "NetRoute.h"
+
+  export *
+  module * { export * }
+}
+
+module NetRoute.Swift {
+    header "NetRoute-Swift.h"
+}
