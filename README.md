@@ -1,4 +1,4 @@
 # NetRoute
-## NetRoute iOS networking framework.
+## iOS networking framework.
 
 goforit.pro/netroute
