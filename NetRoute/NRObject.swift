@@ -23,6 +23,6 @@ import Foundation
 /// Base NetRoute class.
 public class NRObject: NSObject {
     
-    // Base class.
+    // Base class for NetRoute objects.
     
 }
