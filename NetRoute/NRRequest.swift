@@ -1,6 +1,6 @@
 //
 //  NRRequest.swift
-//  NRKit
+//  NetRoute
 //
 //  Created by Kirill Averkiev on 15.04.16.
 //  Copyright © 2016 Kirill Averkiev. All rights reserved.
@@ -39,7 +39,7 @@ public class NRRequest: NRObject {
     
     
     /// URL to the HTTP method.
-    public let URL: NSURL
+    public let URL: Foundation.URL
     
     /// Priority of the request.
     public let priority: NRRequestPriority
@@ -50,6 +50,36 @@ public class NRRequest: NRObject {
     /// Parametes for the request.
     public let parameters: NRRequestParameters?
     
+    /// NSMutableURLRequest property.
+    private var request: NSMutableURLRequest {
+        
+        get {
+        
+            // Create NSMutableURLRequest.
+            let request: NSMutableURLRequest = NSMutableURLRequest(url: URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 120.0)
+            request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+            request.httpMethod = type.rawValue
+            
+            // Apply parameters to either to URL or to Body depending on type.
+            if parameters != nil {
+                switch type {
+                    
+                case .GET:
+                    
+                    // Add paraeters as a string to the HTTP URL.
+                    request.url = Foundation.URL(string: URL.absoluteString! + "?" + parameters!.description)
+                    
+                case .POST:
+                    
+                    // Add parameters to the body of HTTP method.
+                    request.httpBody = parameters!.description.data(using: String.Encoding.utf8)
+                }
+            }
+            
+            return request
+        }
+    }
+
     
     
     // MARK: Variables
@@ -60,7 +90,7 @@ public class NRRequest: NRObject {
     public var response: NRResponse?
     
     /// State of the request.
-    internal var state = NRRequestState.Unset
+    internal var state = NRRequestState.unset
     
     /// Description.
     public override var description: String {
@@ -86,18 +116,18 @@ public class NRRequest: NRObject {
     /// - `High`:               Important UI-request.
     /// - `Backound`:           The request is a background task.
     
-    public init(URL: NSURL, type: NRRequestType, parameters: Dictionary<String, String>?, priority: NRRequestPriority = .Default) {
+    public init(URL: Foundation.URL, type: NRRequestType, parameters: Dictionary<String, String>?, priority: NRRequestPriority = .defaultPriority) {
         
-        // Set the URL
+        // Set the URL.
         self.URL = URL
         
-        // Set the parameters fro the given dictionary
+        // Set the parameters from the given dictionary.
         self.parameters = parameters != nil ? NRRequestParameters(dictionary: parameters!) : nil
         
-        // Set the priority
+        // Set the priority.
         self.priority = priority
         
-        // Set the method type
+        // Set the method type.
         self.type = type
     }
     
@@ -114,14 +144,18 @@ public class NRRequest: NRObject {
     /// - `High`:               Important UI-request.
     /// - `Backound`:           The request is a background task.
     
-    public init(name: String, type: NRRequestType, parameters: Dictionary<String, String>?, priority: NRRequestPriority = .Default) {
+    public init(name: String, type: NRRequestType, parameters: Dictionary<String, String>?, priority: NRRequestPriority = .defaultPriority) {
         
-        // Set the URL by apending the method name to the deaful URL
-        self.URL = NSURL(string: (NRURLManager.sharedManager.primaryURL?.absoluteString)! + name)!
+        // Set the URL by apending the method name to the deaful URL.
+        self.URL = Foundation.URL(string: (NRURLManager.sharedManager.primaryURL?.absoluteString)! + name)!
         
-        // Initialize other properties
+        // Set the parameters from the given dictionary.
         self.parameters = parameters != nil ? NRRequestParameters(dictionary: parameters!) : nil
+        
+        // Set the priority.
         self.priority = priority
+        
+        // Set the method type.
         self.type = type
     }
     
@@ -138,12 +172,21 @@ public class NRRequest: NRObject {
     /// - `High`:               Important UI-request.
     /// - `Backound`:           The request is a background task.
     
-    public init(name: String, type: NRRequestType, parameters: NRRequestParameters, priority: NRRequestPriority = .Default) {
-        self.URL = NSURL(string: (NRURLManager.sharedManager.primaryURL?.absoluteString)! + name)!
+    public init(name: String, type: NRRequestType, parameters: NRRequestParameters, priority: NRRequestPriority = .defaultPriority) {
+        
+        // Set the URL by apending the method name to the deaful URL.
+        self.URL = Foundation.URL(string: (NRURLManager.sharedManager.primaryURL?.absoluteString)! + name)!
+        
+        // Set the parameters from the given dictionary.
         self.parameters = parameters
+        
+        // Set the priority.
         self.priority = priority
+        
+        // Set the method type.
         self.type = type
     }
+    
     
     
     // MARK: - Direct execution
@@ -154,21 +197,21 @@ public class NRRequest: NRObject {
     ///
     /// - Parameter completion: Callback that is called after request returned response.
     
-    public func runWithCompletion(completion: ((response: NRResponse) -> Void)?) {
+    public func runWithCompletion(_ completion: ((response: NRResponse) -> Void)?) {
         
         // Switch to prevent request execution when it is not on any queue.
         switch state {
             
         // Check if the request is on queue.
-        case .Unset:
+        case .unset:
             
             // Set state to avoid simultaneous requests.
-            state = .Executing
+            state = .executing
             
             // Create NSMutableRequest and set it up.
-            let request: NSMutableURLRequest = NSMutableURLRequest(URL: URL, cachePolicy: .UseProtocolCachePolicy, timeoutInterval: 120.0)
+            let request: NSMutableURLRequest = NSMutableURLRequest(url: URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 120.0)
             request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-            request.HTTPMethod = type.rawValue
+            request.httpMethod = type.rawValue
             
             // Apply parameters to either to URL or to Body depending on type.
             if parameters != nil {
@@ -177,33 +220,33 @@ public class NRRequest: NRObject {
                 case .GET:
                     
                     // Add paraeters as a string to the HTTP URL.
-                    request.URL = NSURL(string: URL.absoluteString + "?" + parameters!.description)
+                    request.url = Foundation.URL(string: URL.absoluteString! + "?" + parameters!.description)
                     
                 case .POST:
                     
                     // Add parameters to the body of HTTP method.
-                    request.HTTPBody = parameters!.description.dataUsingEncoding(NSUTF8StringEncoding)
+                    request.httpBody = parameters!.description.data(using: String.Encoding.utf8)
                 }
             }
             
             // Check if the callback is nil.
                 
             // Run the request with the provided callback.
-            NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { data, response, error in
+            URLSession.shared().dataTask(with: request, completionHandler: { data, response, error in
                 completion?(response: NRResponse(data: data, response: response, error: error))
             }).resume()
             
             // Change the state of request.
-            state = .Done
+            state = .done
             
         // Prevent execution of the request if it is not on the queue, unset or completed.
-        case .OnQueue:
+        case .onQueue:
             print("'\(description)' is already on the queue waiting for execution.")
             
-        case .Executing:
+        case .executing:
             print("'\(description)' is already running.")
             
-        case .Done:
+        case .done:
             print("'\(description)' is done and has to be deinitialized.")
         }
         
@@ -220,13 +263,13 @@ public class NRRequest: NRObject {
     ///
     /// - Parameter queue: A queue to add the request.
     
-    public func passToQueue(queue: NRRequestQueue) {
+    public func passToQueue(_ queue: NRRequestQueue) {
         
         // Prevent passing if the request is already on queue.
-        if state != .OnQueue {
+        if state != .onQueue {
             
             // Set the state.
-            state = .OnQueue
+            state = .onQueue
             
             // Add the request.
             queue.addRequest(self)
@@ -250,7 +293,7 @@ public class NRRequest: NRObject {
     /// - Returns: The boundary string.
     
     private func generateBoundaryString() -> String {
-        return "Boundary-\(NSUUID().UUIDString)"
+        return "Boundary-\(UUID().uuidString)"
     }
     
     /// Determine mime type on the basis of extension of a file.
@@ -259,8 +302,8 @@ public class NRRequest: NRObject {
     ///
     /// - Returns:          Returns the mime type if successful. Returns application/octet-stream if unable to determine mime type.
     
-    private func mimeTypeForPath(path: String) -> String {
-        let url = NSURL(fileURLWithPath: path)
+    private func mimeTypeForPath(_ path: String) -> String {
+        let url = Foundation.URL(fileURLWithPath: path)
         let pathExtension = url.pathExtension
         
         if let identifier = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, pathExtension! as NSString, nil)?.takeRetainedValue() {

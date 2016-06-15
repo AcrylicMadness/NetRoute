@@ -34,18 +34,18 @@ class NetRouteTests: XCTestCase {
     
     func testExample() {
         
-        let expectation = expectationWithDescription("Asyncronious operation")
+        let expectation = self.expectation(withDescription: "Asyncronious operation")
         
         
         
-        let testReq = NRRequest(URL: NSURL(string: "https://api.lycapp.ru/User/Auth")!, type: .POST, parameters: ["server_name": "LYCAPP", "dev_key": "wqxUY3nQMPq6YjIW", "login": "testlogin", "password": "testpassword"])
+        let testReq = NRRequest(URL: URL(string: "https://api.lycapp.ru/User/Auth")!, type: .POST, parameters: ["server_name": "LYCAPP", "dev_key": "wqxUY3nQMPq6YjIW", "login": "testlogin", "password": "testpassword"])
         testReq.runWithCompletion() { response in
             //print(response.dictionaryValue!["error_code"])
             print(response)
             expectation.fulfill()
         }
         
-        waitForExpectationsWithTimeout(30.0, handler: nil)
+        waitForExpectations(withTimeout: 30.0, handler: nil)
     }
     
 }

@@ -23,15 +23,15 @@ import Foundation
 public enum NRRequestPriority: Int {
     
     /// The request is a background task.
-    case BackgroundTask = 0
+    case backgroundTask = 0
     
     /// User-initiated not important request, that can not be done in background.
-    case Low = 1
+    case lowPriority = 1
     
     /// The standart user-initiated request.
-    case Default = 2
+    case defaultPriority = 2
     
     /// Important UI-request.
-    case High = 3
+    case highPriority = 3
     
 }

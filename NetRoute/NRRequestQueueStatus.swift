@@ -23,18 +23,18 @@ import Foundation
 enum NRRequestQueueStatus {
     
     /// The queue is not executing any requests.
-    case NotExecuting
+    case notExecuting
     
     /// The queue is executing requests with high priority.
-    case ExecutingHigh
+    case executingHigh
     
     /// The queue is executing requests with default priority.
-    case ExecutingDefault
+    case executingDefault
     
     /// The queue is executing requests with low priority.
-    case ExecutingLow
+    case executingLow
     
     /// The queue is executing background requests.
-    case InBackgroundExecution
+    case inBackgroundExecution
     
 }

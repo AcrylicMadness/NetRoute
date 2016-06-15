@@ -29,10 +29,10 @@ public class NRResponse: NRObject {
     
     
     /// Response data.
-    public let data: NSData?
+    public let data: Data?
     
     /// HTTP response.
-    public let response: NSURLResponse?
+    public let response: URLResponse?
     
     /// Error.
     public let error: NSError?
@@ -44,7 +44,7 @@ public class NRResponse: NRObject {
     
     
     /// Encoding for the string conversion. Default is `NSUTF8StringEncoding`.
-    public var encoding = NSUTF8StringEncoding
+    public var encoding = String.Encoding.utf8
     
     /// String conversion.Returns nil if the data can not be presented as `String`.
     public override var description: String {
@@ -87,7 +87,7 @@ public class NRResponse: NRObject {
         // Check if data is not nil.
         if data != nil {
             do {
-                let responseJSON = try NSJSONSerialization.JSONObjectWithData(data!, options: .MutableContainers) as? NSDictionary
+                let responseJSON = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 return responseJSON as? Dictionary
             } catch _ {
                 
@@ -104,7 +104,7 @@ public class NRResponse: NRObject {
     }
     
     /// Initializes a new instance from default `NSURLSession` output.
-    public init(data: NSData?, response: NSURLResponse?, error: NSError?) {
+    public init(data: Data?, response: URLResponse?, error: NSError?) {
         self.data = data
         self.response = response
         self.error = error

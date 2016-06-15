@@ -29,7 +29,7 @@ public class NRURLManager: NRObject {
     
     
     /// URL to store.
-    public var primaryURL: NSURL?
+    public var primaryURL: URL?
     
     /// Singleton.
     public static let sharedManager = NRURLManager()

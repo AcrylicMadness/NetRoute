@@ -32,7 +32,7 @@ public class NRRequestQueue: NRObject {
     private var requestsInQueue: Array<NRRequest> = []
     
     /// Status of the queue.
-    private var status = NRRequestQueueStatus.NotExecuting
+    private var status = NRRequestQueueStatus.notExecuting
     
     /// Descriprion for converting to string.
     public override var description: String {
@@ -49,23 +49,23 @@ public class NRRequestQueue: NRObject {
     /// - Warning: This method should not be used to add requests. Use `passToQueue(queue: NRRequestQueue)` of a request object.
     /// - Parameter request: A request to add to the queue.
     
-    internal func addRequest(request: NRRequest) {
+    internal func addRequest(_ request: NRRequest) {
         
         // Blocking the method if queue if executing.
-        if status == .NotExecuting {
+        if status == .notExecuting {
             
             // Check the priority.
             switch request.priority {
             
             // If it is low, just add the request to the end of the queue.
-            case .Low:
+            case .lowPriority:
                 requestsInQueue.append(request)
                 
             // Find a place to put the request depending on its priority.
             default:
                 
                 let index = getIndexForPriority(request.priority)
-                requestsInQueue.insert(request, atIndex: index)
+                requestsInQueue.insert(request, at: index)
             }
             
         } else {
@@ -85,23 +85,23 @@ public class NRRequestQueue: NRObject {
             // Set the right executing status for the queue.
             switch request.priority {
                 
-            case .BackgroundTask:
-                status = .InBackgroundExecution
-            case .High:
-                status = .ExecutingHigh
-            case .Default:
-                status = .ExecutingDefault
-            case .Low:
-                status = .ExecutingLow
+            case .backgroundTask:
+                status = .inBackgroundExecution
+            case .highPriority:
+                status = .executingHigh
+            case .defaultPriority:
+                status = .executingDefault
+            case .lowPriority:
+                status = .executingLow
             }
             
             // Run the request remove it from the queue.
             request.runWithCompletion(nil)
-            requestsInQueue.removeAtIndex(requestsInQueue.indexOf(request)!)
+            requestsInQueue.remove(at: requestsInQueue.index(of: request)!)
         }
         
         // Clear the status to make the queue reusable.
-        status = .NotExecuting
+        status = .notExecuting
     }
     
     
@@ -114,7 +114,7 @@ public class NRRequestQueue: NRObject {
     /// - Parameter priority: Priority that is used to find the right position.
     /// - Returns: An index of the requests array to insert the request with given priority.
     
-    private func getIndexForPriority(priorityForPosition: NRRequestPriority) -> Int {
+    private func getIndexForPriority(_ priorityForPosition: NRRequestPriority) -> Int {
         
         // A flag to know when the place is found.
         var found = false

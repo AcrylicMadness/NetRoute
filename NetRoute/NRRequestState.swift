@@ -23,15 +23,15 @@ import Foundation
 public enum NRRequestState {
     
     /// The request is not set.
-    case Unset
+    case unset
     
     /// The request has been sent to the queue.
-    case OnQueue
+    case onQueue
     
     /// The request is proccessing.
-    case Executing
+    case executing
     
     /// The request if completed.
-    case Done
+    case done
     
 }

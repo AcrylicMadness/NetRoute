@@ -1,6 +1,6 @@
 //
 //  NRObject.swift
-//  NRKit
+//  NetRoute
 //
 //  Created by Kirill Averkiev on 15.04.16.
 //  Copyright © 2016 Kirill Averkiev. All rights reserved.
@@ -24,5 +24,10 @@ import Foundation
 public class NRObject: NSObject {
     
     // Base class for NetRoute objects.
+    
+    /// This feature is not yet implemented.
+    func unimplemented() {
+        print("Unimplemented!")
+    }
     
 }
