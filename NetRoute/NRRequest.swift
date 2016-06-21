@@ -51,12 +51,12 @@ public class NRRequest: NRObject {
     public let parameters: NRRequestParameters?
     
     /// NSMutableURLRequest property.
-    private var request: NSMutableURLRequest {
+    private var request: URLRequest {
         
         get {
         
             // Create NSMutableURLRequest.
-            let request: NSMutableURLRequest = NSMutableURLRequest(url: URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 120.0)
+            var request: URLRequest = URLRequest(url: URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 120.0)
             request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
             request.httpMethod = type.rawValue
             
@@ -209,7 +209,7 @@ public class NRRequest: NRObject {
             state = .executing
             
             // Create NSMutableRequest and set it up.
-            let request: NSMutableURLRequest = NSMutableURLRequest(url: URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 120.0)
+            var request: URLRequest = URLRequest(url: URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 120.0)
             request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
             request.httpMethod = type.rawValue
             
@@ -232,7 +232,7 @@ public class NRRequest: NRObject {
             // Check if the callback is nil.
                 
             // Run the request with the provided callback.
-            URLSession.shared().dataTask(with: request, completionHandler: { data, response, error in
+            URLSession.shared().dataTask(with: request, completionHandler: { (data, response, error) in
                 completion?(response: NRResponse(data: data, response: response, error: error))
             }).resume()
             
