@@ -1,6 +1,6 @@
 //
-//  NRRequestType.swift
-//  NRKit
+//  NetRequestQueueStatus.swift
+//  NetRoute
 //
 //  Created by Kirill Averkiev on 18.04.16.
 //  Copyright © 2016 Kirill Averkiev. All rights reserved.
@@ -19,13 +19,22 @@
 
 import Foundation
 
-/// Type of the request.
-public enum NRRequestType: String {
+/// The state of the request queue.
+enum NetRequestQueueStatus {
     
-    /// .GET request.
-    case GET
+    /// The queue is not executing any requests.
+    case stopped
     
-    /// .POST request.
-    case POST
+    /// The queue is executing requests with high priority.
+    case executingHigh
+    
+    /// The queue is executing requests with default priority.
+    case executingDefault
+    
+    /// The queue is executing requests with low priority.
+    case executingLow
+    
+    /// The queue is executing background requests.
+    case inBackgroundExecution
     
 }

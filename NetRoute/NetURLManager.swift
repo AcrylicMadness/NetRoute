@@ -1,6 +1,6 @@
 //
-//  NRRequestQueueStatus.swift
-//  NRKit
+//  NetURLManager.swift
+//  NetRoute
 //
 //  Created by Kirill Averkiev on 18.04.16.
 //  Copyright © 2016 Kirill Averkiev. All rights reserved.
@@ -19,22 +19,19 @@
 
 import Foundation
 
-/// The state of the request queue.
-enum NRRequestQueueStatus {
+/// URL manager used to store the default url to the API.
+public class NetManager: NetRouteObject {
     
-    /// The queue is not executing any requests.
-    case notExecuting
     
-    /// The queue is executing requests with high priority.
-    case executingHigh
     
-    /// The queue is executing requests with default priority.
-    case executingDefault
+    // MARK: - Properties
     
-    /// The queue is executing requests with low priority.
-    case executingLow
     
-    /// The queue is executing background requests.
-    case inBackgroundExecution
+    
+    /// URL to store.
+    public var primaryURL: URL?
+    
+    /// Singleton.
+    public static let sharedManager = NetManager()
     
 }

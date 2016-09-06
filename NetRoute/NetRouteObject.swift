@@ -1,8 +1,8 @@
 //
-//  NRRequestPriority.swift
-//  NRKit
+//  NetObject.swift
+//  NetRoute
 //
-//  Created by Kirill Averkiev on 18.04.16.
+//  Created by Kirill Averkiev on 15.04.16.
 //  Copyright © 2016 Kirill Averkiev. All rights reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,19 +19,14 @@
 
 import Foundation
 
-/// Priority of the request.
-public enum NRRequestPriority: Int {
+/// Base NetRoute class.
+public class NetRouteObject: NSObject {
     
-    /// The request is a background task.
-    case backgroundTask = 0
+    // Base class for NetRoute objects.
     
-    /// User-initiated not important request, that can not be done in background.
-    case lowPriority = 1
-    
-    /// The standart user-initiated request.
-    case defaultPriority = 2
-    
-    /// Important UI-request.
-    case highPriority = 3
+    /// This feature is not yet implemented.
+    func unimplemented() {
+        print("Unimplemented!")
+    }
     
 }

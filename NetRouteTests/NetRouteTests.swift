@@ -34,18 +34,16 @@ class NetRouteTests: XCTestCase {
     
     func testExample() {
         
-        let expectation = self.expectation(withDescription: "Asyncronious operation")
+        let expectation = self.expectation(description: "Asyncronious operation")
+    
+        let request = NetRequest(url: URL(string: "http://api.goforit.pro/User/Reg")!, type: .POST, parameters: ["login": "aKirill", "password": "ucpass", "email": "k.averkiv@goforit.pro", "dev_key": "wqxUY3nQMPq6YjIW", "server_name": "GOFORIT"])
         
-        
-        
-        let testReq = NRRequest(URL: URL(string: "https://api.lycapp.ru/User/Auth")!, type: .POST, parameters: ["server_name": "LYCAPP", "dev_key": "wqxUY3nQMPq6YjIW", "login": "testlogin", "password": "testpassword"])
-        testReq.runWithCompletion() { response in
-            //print(response.dictionaryValue!["error_code"])
+        request.run() { response in
             print(response)
             expectation.fulfill()
         }
         
-        waitForExpectations(withTimeout: 30.0, handler: nil)
+        waitForExpectations(timeout: 30.0, handler: nil)
     }
     
 }

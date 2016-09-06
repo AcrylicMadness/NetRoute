@@ -1,6 +1,6 @@
 //
-//  NRParameters.swift
-//  NRKit
+//  NetRequestParameters.swift
+//  NetRoute
 //
 //  Created by Kirill Averkiev on 18.04.16.
 //  Copyright © 2016 Kirill Averkiev. All rights reserved.
@@ -20,24 +20,26 @@
 import Foundation
 
 /// Parameters for the request.
-public class NRRequestParameters: NRObject {
+public class NetRequestParameters: NetRouteObject {
     
     
     
-    // MARK: - Properties
+    // MARK: - Variables
+    
+    
+    
+    // MARK: Public
     
     
     
     /// Dictionary with parameters.
-    public var parametersDictionary: Dictionary<String, String>
+    public var dictionary: Dictionary<String, String>
     
     /// Custom string that can be appended to URL in `.GET` requests.
     override public var description: String {
-        var resultString = ""
-        for (key, value) in parametersDictionary {
-            resultString += "\(key)=\(value)&"
-        }
-        return resultString
+        
+        // Return HTML-standard parameters string.
+        return dictionary.map { "\($0.0)=\($0.1)" }.joined(separator: "&")
     }
     
     
@@ -48,7 +50,7 @@ public class NRRequestParameters: NRObject {
     
     /// Initializes a new instancw from a given dictionary.
     public init(dictionary: Dictionary<String, String>) {
-        self.parametersDictionary = dictionary
+        self.dictionary = dictionary
     }
     
 }

@@ -1,8 +1,8 @@
 //
-//  NRObject.swift
+//  NetRequestState.swift
 //  NetRoute
 //
-//  Created by Kirill Averkiev on 15.04.16.
+//  Created by Kirill Averkiev on 18.04.16.
 //  Copyright © 2016 Kirill Averkiev. All rights reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,17 +17,21 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-
 import Foundation
 
-/// Base NetRoute class.
-public class NRObject: NSObject {
+/// State of the request.
+public enum NetRequestState {
     
-    // Base class for NetRoute objects.
+    /// The request is not set.
+    case unset
     
-    /// This feature is not yet implemented.
-    func unimplemented() {
-        print("Unimplemented!")
-    }
+    /// The request has been sent to the queue.
+    case queuing
+    
+    /// The request is proccessing.
+    case executing
+    
+    /// The request if completed.
+    case done
     
 }

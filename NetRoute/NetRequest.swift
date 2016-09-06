@@ -1,5 +1,5 @@
 //
-//  NRRequest.swift
+//  NetRequest.swift
 //  NetRoute
 //
 //  Created by Kirill Averkiev on 15.04.16.
@@ -18,7 +18,6 @@
 //  limitations under the License.
 
 import Foundation
-import MobileCoreServices
 
 /// Basic network request to work with HTTP method.
 /// The request can be put into a request queue.
@@ -30,71 +29,138 @@ import MobileCoreServices
 /// - `High`:       Important UI-request.
 /// - `Backound`:   The request is a background task.
 
-public class NRRequest: NRObject {
+public class NetRequest: NetRouteObject {
+
     
     
-    
-    // MARK: - Constants
+    // MARK: Constants
     
     
     
     /// URL to the HTTP method.
-    public let URL: Foundation.URL
+    public let url: URL
     
     /// Priority of the request.
-    public let priority: NRRequestPriority
+    public let priority: NetRequestPriority
     
     /// Type of the request.
-    public let type: NRRequestType
+    public let type: NetRequestType
     
     /// Parametes for the request.
-    public let parameters: NRRequestParameters?
+    public let parameters: NetRequestParameters?
+    
+    
+    
+    // MARK: - Variables
+    
+    
+    
+    // MARK: Public
+    
+    
+    
+    /// Response of the HTTP method.
+    public var response: NetResponse?
+    
+    /// Description.
+    public override var description: String {
+        return "\(url) (\(type.rawValue)) with priority: \(priority.rawValue)"
+    }
+    
+    
+    
+    // MARK: Internal
+    
+    
+    
+    /// State of the request.
+    internal var state: NetRequestState = .unset
+    
+    
+    
+    // MARK: Private
+    
+    
+    
+    /// Array of media data that can be uploaded with request.
+    private var uploadData: Data?
+    
+    /// Name of the file to upload.
+    private var uploadFilename: String = "file"
+    
+    /// MimeType of the upload data.
+    private var mimetype: String = "application/octet-stream";
     
     /// NSMutableURLRequest property.
     private var request: URLRequest {
         
         get {
         
-            // Create NSMutableURLRequest.
-            var request: URLRequest = URLRequest(url: URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 120.0)
+            // Create URLRequest.
+            var request: URLRequest = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 120.0)
             request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
             request.httpMethod = type.rawValue
             
-            // Apply parameters to either to URL or to Body depending on type.
-            if parameters != nil {
-                switch type {
-                    
-                case .GET:
+            // Prepare request dependong on its contents.
+            switch type {
+                
+            case .GET:
+                
+                if parameters != nil {
                     
                     // Add paraeters as a string to the HTTP URL.
-                    request.url = Foundation.URL(string: URL.absoluteString! + "?" + parameters!.description)
-                    
-                case .POST:
-                    
-                    // Add parameters to the body of HTTP method.
-                    request.httpBody = parameters!.description.data(using: String.Encoding.utf8)
+                    request.url = Foundation.URL(string: url.absoluteString + "?" + parameters!.description)
                 }
+                    
+            case .POST, .PUT:
+                
+                if uploadData == nil {
+                
+                    if parameters != nil {
+                        
+                        // Add parameters to the body of HTTP method.
+                        request.httpBody = parameters!.description.data(using: String.Encoding.utf8)
+                    }
+                    
+                } else {
+                    
+                    // Create boundary string and set it to request header.
+                    let boundary = generateBoundaryString()
+                    request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+                    
+                    
+                    // Set the Multipart/Form Data and append it to httpBody.
+                    var body = Data()
+           
+                    body.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
+                    body.append("Content-Disposition:form-data; name=\"test\"\r\n\r\n".data(using: String.Encoding.utf8)!)
+                    body.append("hi\r\n".data(using: String.Encoding.utf8)!)
+                    
+                    body.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
+                    body.append("Content-Disposition:form-data; name=\"file\"; filename=\"\(uploadFilename)\"\r\n".data(using: String.Encoding.utf8)!)
+                    body.append("Content-Type: \(mimetype)\r\n\r\n".data(using: String.Encoding.utf8)!)
+                    body.append(uploadData!)
+                    body.append("\r\n".data(using: String.Encoding.utf8)!)
+                    
+                    if parameters != nil {
+                    
+                        for (key, value) in parameters!.dictionary {
+                            body.append("\r\n--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
+                            body.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n\(value)".data(using: String.Encoding.utf8)!)
+                        }
+                    
+                    }
+                    
+                    body.append("--\(boundary)--\r\n".data(using: String.Encoding.utf8)!)
+                    
+                    request.httpBody = body
+                    
+                } 
+                
             }
             
             return request
         }
-    }
-
-    
-    
-    // MARK: Variables
-    
-    
-    
-    /// Response of the HTTP method.
-    public var response: NRResponse?
-    
-    /// State of the request.
-    internal var state = NRRequestState.unset
-    
-    /// Description.
-    public override var description: String {
-        return "\(URL) (\(type.rawValue)) with priority: \(priority.rawValue)"
     }
     
     
@@ -116,13 +182,13 @@ public class NRRequest: NRObject {
     /// - `High`:               Important UI-request.
     /// - `Backound`:           The request is a background task.
     
-    public init(URL: Foundation.URL, type: NRRequestType, parameters: Dictionary<String, String>?, priority: NRRequestPriority = .defaultPriority) {
+    public init(url: URL, type: NetRequestType, parameters: Dictionary<String, String>?, priority: NetRequestPriority = .medium) {
         
         // Set the URL.
-        self.URL = URL
+        self.url = url
         
         // Set the parameters from the given dictionary.
-        self.parameters = parameters != nil ? NRRequestParameters(dictionary: parameters!) : nil
+        self.parameters = parameters != nil ? NetRequestParameters(dictionary: parameters!) : nil
         
         // Set the priority.
         self.priority = priority
@@ -144,13 +210,13 @@ public class NRRequest: NRObject {
     /// - `High`:               Important UI-request.
     /// - `Backound`:           The request is a background task.
     
-    public init(name: String, type: NRRequestType, parameters: Dictionary<String, String>?, priority: NRRequestPriority = .defaultPriority) {
+    public init(name: String, type: NetRequestType, parameters: Dictionary<String, String>?, priority: NetRequestPriority = .medium) {
         
         // Set the URL by apending the method name to the deaful URL.
-        self.URL = Foundation.URL(string: (NRURLManager.sharedManager.primaryURL?.absoluteString)! + name)!
+        self.url = URL(string: (NetManager.sharedManager.primaryURL?.absoluteString)! + name)!
         
         // Set the parameters from the given dictionary.
-        self.parameters = parameters != nil ? NRRequestParameters(dictionary: parameters!) : nil
+        self.parameters = parameters != nil ? NetRequestParameters(dictionary: parameters!) : nil
         
         // Set the priority.
         self.priority = priority
@@ -172,10 +238,10 @@ public class NRRequest: NRObject {
     /// - `High`:               Important UI-request.
     /// - `Backound`:           The request is a background task.
     
-    public init(name: String, type: NRRequestType, parameters: NRRequestParameters, priority: NRRequestPriority = .defaultPriority) {
+    public init(name: String, type: NetRequestType, parameters: NetRequestParameters, priority: NetRequestPriority = .medium) {
         
         // Set the URL by apending the method name to the deaful URL.
-        self.URL = Foundation.URL(string: (NRURLManager.sharedManager.primaryURL?.absoluteString)! + name)!
+        self.url = URL(string: (NetManager.sharedManager.primaryURL?.absoluteString)! + name)!
         
         // Set the parameters from the given dictionary.
         self.parameters = parameters
@@ -197,7 +263,7 @@ public class NRRequest: NRObject {
     ///
     /// - Parameter completion: Callback that is called after request returned response.
     
-    public func runWithCompletion(_ completion: ((response: NRResponse) -> Void)?) {
+    public func run(completionHandler: ((_ response: NetResponse) -> Void)?) {
         
         // Switch to prevent request execution when it is not on any queue.
         switch state {
@@ -208,8 +274,8 @@ public class NRRequest: NRObject {
             // Set state to avoid simultaneous requests.
             state = .executing
             
-            // Create NSMutableRequest and set it up.
-            var request: URLRequest = URLRequest(url: URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 120.0)
+            // Create URLRequest and set it up.
+            var request: URLRequest = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 120.0)
             request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
             request.httpMethod = type.rawValue
             
@@ -220,9 +286,9 @@ public class NRRequest: NRObject {
                 case .GET:
                     
                     // Add paraeters as a string to the HTTP URL.
-                    request.url = Foundation.URL(string: URL.absoluteString! + "?" + parameters!.description)
+                    request.url = URL(string: url.absoluteString + "?" + parameters!.description)
                     
-                case .POST:
+                case .POST, .PUT:
                     
                     // Add parameters to the body of HTTP method.
                     request.httpBody = parameters!.description.data(using: String.Encoding.utf8)
@@ -232,15 +298,17 @@ public class NRRequest: NRObject {
             // Check if the callback is nil.
                 
             // Run the request with the provided callback.
-            URLSession.shared().dataTask(with: request, completionHandler: { (data, response, error) in
-                completion?(response: NRResponse(data: data, response: response, error: error))
+            URLSession.shared.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
+                if completionHandler != nil {
+                    completionHandler?(NetResponse(data: data, response: response, error: error))
+                }
             }).resume()
             
             // Change the state of request.
             state = .done
             
         // Prevent execution of the request if it is not on the queue, unset or completed.
-        case .onQueue:
+        case .queuing:
             print("'\(description)' is already on the queue waiting for execution.")
             
         case .executing:
@@ -263,16 +331,14 @@ public class NRRequest: NRObject {
     ///
     /// - Parameter queue: A queue to add the request.
     
-    public func passToQueue(_ queue: NRRequestQueue) {
+    public func pass(queue: NetRequestQueue) {
         
         // Prevent passing if the request is already on queue.
-        if state != .onQueue {
+        if state != .queuing {
             
-            // Set the state.
-            state = .onQueue
-            
-            // Add the request.
-            queue.addRequest(self)
+            // Add request.
+            state = .queuing
+            queue.add(request: self)
             
         } else {
             
@@ -286,7 +352,7 @@ public class NRRequest: NRObject {
     
     // MARK: - Multipart/Form-Data
     
-    // TODO: Add Multipart/Form Data
+    
     
     /// Create boundary string for multipart/form-data request
     ///
@@ -296,23 +362,18 @@ public class NRRequest: NRObject {
         return "Boundary-\(UUID().uuidString)"
     }
     
-    /// Determine mime type on the basis of extension of a file.
+    /// Adds an image to upload.
     ///
-    /// - Parameter path:   The path of the file for which mime type should be determined.
-    ///
-    /// - Returns:          Returns the mime type if successful. Returns application/octet-stream if unable to determine mime type.
+    /// - Parameter image: An image to add.
+    /// - Parameter filename: Filename of the image.
     
-    private func mimeTypeForPath(_ path: String) -> String {
-        let url = Foundation.URL(fileURLWithPath: path)
-        let pathExtension = url.pathExtension
+    public func add(data: Data, filename: String, mimetype: String) {
         
-        if let identifier = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, pathExtension! as NSString, nil)?.takeRetainedValue() {
-            if let mimetype = UTTypeCopyPreferredTagWithClass(identifier, kUTTagClassMIMEType)?.takeRetainedValue() {
-                return mimetype as String
-            }
-        }
+        /// Set the data and info.
+        uploadData = data
+        uploadFilename = filename
         
-        return "application/octet-stream";
+        self.mimetype = mimetype
     }
     
 }

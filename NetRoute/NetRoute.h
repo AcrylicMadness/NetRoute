@@ -26,5 +26,3 @@ FOUNDATION_EXPORT double NetRouteVersionNumber;
 FOUNDATION_EXPORT const unsigned char NetRouteVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <NetRoute/PublicHeader.h>
-
-

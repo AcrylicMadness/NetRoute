@@ -1,6 +1,6 @@
 //
-//  NRResponse.swift
-//  NRKit
+//  NetResponse.swift
+//  NetROute
 //
 //  Created by Kirill Averkiev on 15.04.16.
 //  Copyright © 2016 Kirill Averkiev. All rights reserved.
@@ -20,7 +20,7 @@
 import Foundation
 
 /// The response of the request.
-public class NRResponse: NRObject {
+public class NetResponse: NetRouteObject {
     
     
     
@@ -35,7 +35,7 @@ public class NRResponse: NRObject {
     public let response: URLResponse?
     
     /// Error.
-    public let error: NSError?
+    public let error: Error?
     
     
     
@@ -48,7 +48,7 @@ public class NRResponse: NRObject {
     
     /// String conversion.Returns nil if the data can not be presented as `String`.
     public override var description: String {
-        if let dictionary = dictionaryValue {
+        if let dictionary = dictionary {
             var finalString = "{\n"
             for (key, value) in dictionary {
                 finalString += "    " + "\(key): \(value)\n"
@@ -60,7 +60,7 @@ public class NRResponse: NRObject {
     }
     
     /// String value of the data. Returns nil if the data can not be presented as `String`.
-    public var stringValue: String? {
+    public var string: String? {
         
         // Check if data is not nil.
         if data != nil {
@@ -82,7 +82,7 @@ public class NRResponse: NRObject {
     
     
     /// Dictionary of the data. Returns nil if the data can not be presented as `Dictionary`.
-    public var dictionaryValue: Dictionary<String, AnyObject>? {
+    public var dictionary: Dictionary<String, AnyObject>? {
         
         // Check if data is not nil.
         if data != nil {
@@ -103,8 +103,14 @@ public class NRResponse: NRObject {
         }
     }
     
+    
+    
+    // MARK: - Initialization
+    
+    
+    
     /// Initializes a new instance from default `NSURLSession` output.
-    public init(data: Data?, response: URLResponse?, error: NSError?) {
+    public init(data: Data?, response: URLResponse?, error: Error?) {
         self.data = data
         self.response = response
         self.error = error

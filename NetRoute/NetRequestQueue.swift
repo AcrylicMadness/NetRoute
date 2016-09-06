@@ -1,6 +1,6 @@
 //
-//  NRRequestQueue.swift
-//  NRKit
+//  NetRequestQueue.swift
+//  NetRoute
 //
 //  Created by Kirill Averkiev on 15.04.16.
 //  Copyright © 2016 Kirill Averkiev. All rights reserved.
@@ -20,7 +20,7 @@
 import Foundation
 
 /// Queue of requests.
-public class NRRequestQueue: NRObject {
+public class NetRequestQueue: NetRouteObject {
 
     
     
@@ -29,10 +29,10 @@ public class NRRequestQueue: NRObject {
     
     
     /// Array of requests.
-    private var requestsInQueue: Array<NRRequest> = []
+    private var requestsInQueue: Array<NetRequest> = []
     
     /// Status of the queue.
-    private var status = NRRequestQueueStatus.notExecuting
+    private var status = NetRequestQueueStatus.stopped
     
     /// Descriprion for converting to string.
     public override var description: String {
@@ -49,22 +49,22 @@ public class NRRequestQueue: NRObject {
     /// - Warning: This method should not be used to add requests. Use `passToQueue(queue: NRRequestQueue)` of a request object.
     /// - Parameter request: A request to add to the queue.
     
-    internal func addRequest(_ request: NRRequest) {
+    internal func add(request: NetRequest) {
         
         // Blocking the method if queue if executing.
-        if status == .notExecuting {
+        if status == .stopped {
             
             // Check the priority.
             switch request.priority {
             
             // If it is low, just add the request to the end of the queue.
-            case .lowPriority:
+            case .low:
                 requestsInQueue.append(request)
                 
             // Find a place to put the request depending on its priority.
             default:
                 
-                let index = getIndexForPriority(request.priority)
+                let index = getIndex(priority: request.priority)
                 requestsInQueue.insert(request, at: index)
             }
             
@@ -77,7 +77,7 @@ public class NRRequestQueue: NRObject {
     }
     
     /// Runs all requests in the queue.
-    internal func runRequests() {
+    public func run() {
         
         // Get the request.
         for request in requestsInQueue {
@@ -85,23 +85,23 @@ public class NRRequestQueue: NRObject {
             // Set the right executing status for the queue.
             switch request.priority {
                 
-            case .backgroundTask:
+            case .background:
                 status = .inBackgroundExecution
-            case .highPriority:
+            case .high:
                 status = .executingHigh
-            case .defaultPriority:
+            case .medium:
                 status = .executingDefault
-            case .lowPriority:
+            case .low:
                 status = .executingLow
             }
             
             // Run the request remove it from the queue.
-            request.runWithCompletion(nil)
+            request.run(completionHandler: nil)
             requestsInQueue.remove(at: requestsInQueue.index(of: request)!)
         }
         
         // Clear the status to make the queue reusable.
-        status = .notExecuting
+        status = .stopped
     }
     
     
@@ -114,14 +114,14 @@ public class NRRequestQueue: NRObject {
     /// - Parameter priority: Priority that is used to find the right position.
     /// - Returns: An index of the requests array to insert the request with given priority.
     
-    private func getIndexForPriority(_ priorityForPosition: NRRequestPriority) -> Int {
+    private func getIndex(priority: NetRequestPriority) -> Int {
         
         // A flag to know when the place is found.
         var found = false
         
         // Do the search.
         for index in 0..<requestsInQueue.count {
-            if requestsInQueue[index].priority.rawValue < priorityForPosition.rawValue {
+            if requestsInQueue[index].priority.rawValue < priority.rawValue {
                 found = true
                 return index
             }

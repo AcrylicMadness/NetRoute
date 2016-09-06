@@ -1,6 +1,6 @@
 //
-//  NRRequestState.swift
-//  NRKit
+//  NetRequestType.swift
+//  NetRoute
 //
 //  Created by Kirill Averkiev on 18.04.16.
 //  Copyright © 2016 Kirill Averkiev. All rights reserved.
@@ -19,19 +19,16 @@
 
 import Foundation
 
-/// State of the request.
-public enum NRRequestState {
+/// Type of the request.
+public enum NetRequestType: String {
     
-    /// The request is not set.
-    case unset
+    /// .GET request.
+    case GET
     
-    /// The request has been sent to the queue.
-    case onQueue
+    /// .POST request.
+    case POST
     
-    /// The request is proccessing.
-    case executing
-    
-    /// The request if completed.
-    case done
+    /// .PUT request.
+    case PUT
     
 }

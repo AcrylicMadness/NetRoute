@@ -1,5 +1,5 @@
 //
-//  NRURLManager.swift
+//  NetRequestPriority.swift
 //  NRKit
 //
 //  Created by Kirill Averkiev on 18.04.16.
@@ -17,21 +17,21 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-import UIKit
+import Foundation
 
-/// URL manager used to store the default url to the API.
-public class NRURLManager: NRObject {
+/// Priority of the request.
+public enum NetRequestPriority: Int {
     
+    /// The request is a background task.
+    case background = 0
     
+    /// User-initiated not important request, that can not be done in background.
+    case low = 1
     
-    // MARK: - Properties
+    /// The standart user-initiated request.
+    case medium = 2
     
-    
-    
-    /// URL to store.
-    public var primaryURL: URL?
-    
-    /// Singleton.
-    public static let sharedManager = NRURLManager()
+    /// Important UI-request.
+    case high = 3
     
 }
