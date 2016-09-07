@@ -94,7 +94,7 @@ public class NetRequest: NetRouteObject {
     /// MimeType of the upload data.
     private var mimetype: String = "application/octet-stream";
     
-    /// NSMutableURLRequest property.
+    /// URLRequest property created with the given properties.
     public var request: URLRequest {
         
         get {
@@ -112,7 +112,7 @@ public class NetRequest: NetRouteObject {
                 if parameters != nil {
                     
                     // Add paraeters as a string to the HTTP URL.
-                    request.url = Foundation.URL(string: url.absoluteString + "?" + parameters!.description)
+                    request.url = URL(string: url.absoluteString + "?" + parameters!.description)
                 }
                 
             case .POST, .PUT:
@@ -121,6 +121,7 @@ public class NetRequest: NetRouteObject {
                     
                     if parameters != nil {
                         
+                        print("parameters: \(parameters!)")
                         // Add parameters to the body of HTTP method.
                         request.httpBody = parameters!.description.data(using: String.Encoding.utf8)
                     }
@@ -138,7 +139,8 @@ public class NetRequest: NetRouteObject {
                     if parameters != nil {
                         for (key, value) in parameters!.dictionary {
                             body.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
-                            body.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n\(value)\r\n".data(using: String.Encoding.utf8)!)
+                            body.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: .utf8)!)
+                            body.append("\(value)\r\n".data(using: String.Encoding.utf8)!)
                         }
                     }
                     
@@ -272,14 +274,7 @@ public class NetRequest: NetRouteObject {
             // Set state to avoid simultaneous requests.
             state = .executing
             
-            // Create URLRequest and set it up.
-            var request: URLRequest = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 120.0)
-            request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-            request.httpMethod = type.rawValue
-            
-            // Check if the callback is nil.
-            
-            // Run the request with the provided callback.
+            // Run the request with the provided callback is exists.
             URLSession.shared.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
                 if completionHandler != nil {
                     completionHandler?(NetResponse(data: data, response: response, error: error))
@@ -356,7 +351,6 @@ public class NetRequest: NetRouteObject {
         uploadFilename = filename
         uploadFieldname = field
         
-        // Set mimetype.
         self.mimetype = mimetype
     }
     
