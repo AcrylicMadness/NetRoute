@@ -344,14 +344,13 @@ public class NetRequest: NetRouteObject {
     /// - Parameter image: An image to add.
     /// - Parameter filename: Filename of the image.
     
-    public func add(data: Data, forField field: String, filename: String, mimetype: String) {
+    public func add(data: Data, forField field: String, filename: String, mimetype type: String) {
         
         /// Set the data and info.
         uploadData = data
         uploadFilename = filename
         uploadFieldname = field
-        
-        self.mimetype = mimetype
+        mimetype = type
     }
     
 }
