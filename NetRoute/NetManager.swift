@@ -18,7 +18,6 @@
 //  limitations under the License.
 
 import Foundation
-import UIKit
 
 /// URL manager used to store the default url to the API.
 public class NetManager: NetRouteObject {
