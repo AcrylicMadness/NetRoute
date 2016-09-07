@@ -1,6 +1,6 @@
 //
 //  NetResponse.swift
-//  NetROute
+//  NetRoute
 //
 //  Created by Kirill Averkiev on 15.04.16.
 //  Copyright © 2016 Kirill Averkiev. All rights reserved.
@@ -32,7 +32,7 @@ public class NetResponse: NetRouteObject {
     public let data: Data?
     
     /// HTTP response.
-    public let response: URLResponse?
+    public let httpResponse: URLResponse?
     
     /// Error.
     public let error: Error?
@@ -60,7 +60,7 @@ public class NetResponse: NetRouteObject {
     }
     
     /// String value of the data. Returns nil if the data can not be presented as `String`.
-    public var string: String? {
+    public var stringValue: String? {
         
         // Check if data is not nil.
         if data != nil {
@@ -68,14 +68,10 @@ public class NetResponse: NetRouteObject {
                 return responseString
             } else {
                 
-                // Notify about the eroor and return nil.
-                print("The response data can not be parsed to string.")
                 return nil
             }
         } else {
             
-            // Notify about the eroor and return nil.
-            print("The response data is nil.")
             return nil
         }
     }
@@ -91,14 +87,10 @@ public class NetResponse: NetRouteObject {
                 return responseJSON as? Dictionary
             } catch _ {
                 
-                // Notify about the eroor and return nil.
-                print("The response data can not be parsed to dictionary.")
                 return nil
             }
         } else {
             
-            // Notify about the eroor and return nil.
-            print("The response data is nil.")
             return nil
         }
     }
@@ -112,8 +104,36 @@ public class NetResponse: NetRouteObject {
     /// Initializes a new instance from default `NSURLSession` output.
     public init(data: Data?, response: URLResponse?, error: Error?) {
         self.data = data
-        self.response = response
+        self.httpResponse = response
         self.error = error
     }
     
+    
+    
+    // MARK: - Header Values
+    
+    
+    
+    /// Get a header value from response.
+    ///
+    /// - Parameter forHeader: Name of the header.
+    ///
+    /// - Returns: Value for provided header. Nil if no response or the provided header is wrong.
+    public func value(forHeader header: String) -> Any? {
+        if let response = httpResponse as? HTTPURLResponse {
+            return response.allHeaderFields[header]
+        } else {
+            return nil
+        }
+    }
+    
+    /// Get a header value from response.
+    ///
+    /// - Parameter forHeader: Name of the header.
+    ///
+    /// - Returns: String for provided header converted to String. Nil if no response, the provided header is wrong or the data cannot be converted to String.
+    public func string(forHeader header: String) -> String? {
+        return self.value(forHeader: header) as? String
+
+    }
 }

@@ -264,28 +264,18 @@ public class NetRequest: NetRouteObject {
     /// - Parameter completion: Callback that is called after request returned response.
     
     public func run(completionHandler: ((_ response: NetResponse) -> Void)? = nil) {
-        print("running request")
-        if completionHandler != nil {
-            print("completion handler exsits")
-        } else {
-            print("completion handler is nil")
-        }
-        print("switching state")
+        
         // Switch to prevent request execution when it is not on any queue.
         switch state {
             
         // Check if the request is on queue.
         case .unset:
-            print("request is unset")
-            print("setting to executing")
             // Set state to avoid simultaneous requests.
             state = .executing
-            print("running datatask with request")
             // Run the request with the provided callback is exists.
             URLSession.shared.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
                 if completionHandler != nil {
                     completionHandler?(NetResponse(data: data, response: response, error: error))
-                    print("LOLOLOL")
                 }
             }).resume()
             
