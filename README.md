@@ -37,6 +37,8 @@ goforit.pro/netroute
 
 ### Making a request
 
+Meking a request with NetRoute is very easy.
+
 ```swift
 import NetRoute
 
@@ -46,9 +48,11 @@ let requestUrl = URL(string: "https://httpbin.org/get")!
 // Here is where you run your request.
 NetRequest(url: requestUrl, type: .GET).run()
 ```
-> When setting up the request URL be consider using `https` instead of `http`. Using unsecure connections is unreccomended by Apple and causes different problems with Application Transport Security.
+> When setting up the request URL be consider using `https` instead of `http`. Using insecure connections is unrecommended by Apple and causes different problems with Application Transport Security
 
 ### Handle the response
+
+Use `completionHandler` to handle the response when the request is done.
 
 ```swift
 import NetRoute
@@ -61,4 +65,13 @@ NetRequest(url: requestUrl!, type: .GET).run() { (response) in
     print(response)
 }
 ```
-> Note that requests are done in asynchronious way.
+> Requests are done in asyncronios way, and to interrupt with UI elements be sure to use DispatchQueue.main
+
+#### Response parsing
+
+You can use diffirent properties of `NetResponse` to get what you want.
+
+**Response properties**
+
+- `response.string'
+- `response.dictionary`
