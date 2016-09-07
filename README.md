@@ -73,5 +73,5 @@ You can use diffirent properties of `NetResponse` to get what you want.
 
 **Response properties**
 
-- `response.string'
+- `response.string`
 - `response.dictionary`
