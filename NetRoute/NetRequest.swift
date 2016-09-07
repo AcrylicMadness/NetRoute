@@ -30,7 +30,7 @@ import Foundation
 /// - `Backound`:   The request is a background task.
 
 public class NetRequest: NetRouteObject {
-
+    
     
     
     // MARK: Constants
@@ -85,6 +85,9 @@ public class NetRequest: NetRouteObject {
     /// Array of media data that can be uploaded with request.
     private var uploadData: Data?
     
+    /// Field name for the upload file.
+    private var uploadFieldname: String = "field"
+    
     /// Name of the file to upload.
     private var uploadFilename: String = "file"
     
@@ -92,10 +95,10 @@ public class NetRequest: NetRouteObject {
     private var mimetype: String = "application/octet-stream";
     
     /// NSMutableURLRequest property.
-    private var request: URLRequest {
+    public var request: URLRequest {
         
         get {
-        
+            
             // Create URLRequest.
             var request: URLRequest = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 120.0)
             request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
@@ -111,11 +114,11 @@ public class NetRequest: NetRouteObject {
                     // Add paraeters as a string to the HTTP URL.
                     request.url = Foundation.URL(string: url.absoluteString + "?" + parameters!.description)
                 }
-                    
+                
             case .POST, .PUT:
                 
                 if uploadData == nil {
-                
+                    
                     if parameters != nil {
                         
                         // Add parameters to the body of HTTP method.
@@ -131,31 +134,26 @@ public class NetRequest: NetRouteObject {
                     
                     // Set the Multipart/Form Data and append it to httpBody.
                     var body = Data()
-           
-                    body.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
-                    body.append("Content-Disposition:form-data; name=\"test\"\r\n\r\n".data(using: String.Encoding.utf8)!)
-                    body.append("hi\r\n".data(using: String.Encoding.utf8)!)
+                    
+                    if parameters != nil {
+                        for (key, value) in parameters!.dictionary {
+                            body.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
+                            body.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n\(value)\r\n".data(using: String.Encoding.utf8)!)
+                        }
+                    }
                     
                     body.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
-                    body.append("Content-Disposition:form-data; name=\"file\"; filename=\"\(uploadFilename)\"\r\n".data(using: String.Encoding.utf8)!)
+                    body.append("Content-Disposition: form-data; name=\"\(uploadFieldname)\"; filename=\"\(uploadFilename)\"\r\n".data(using: String.Encoding.utf8)!)
                     body.append("Content-Type: \(mimetype)\r\n\r\n".data(using: String.Encoding.utf8)!)
                     body.append(uploadData!)
                     body.append("\r\n".data(using: String.Encoding.utf8)!)
-                    
-                    if parameters != nil {
-                    
-                        for (key, value) in parameters!.dictionary {
-                            body.append("\r\n--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
-                            body.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n\(value)".data(using: String.Encoding.utf8)!)
-                        }
-                    
-                    }
-                    
                     body.append("--\(boundary)--\r\n".data(using: String.Encoding.utf8)!)
+                    
+                    
                     
                     request.httpBody = body
                     
-                } 
+                }
                 
             }
             
@@ -213,7 +211,7 @@ public class NetRequest: NetRouteObject {
     public init(name: String, type: NetRequestType, parameters: Dictionary<String, String>?, priority: NetRequestPriority = .medium) {
         
         // Set the URL by apending the method name to the deaful URL.
-        self.url = URL(string: (NetManager.sharedManager.primaryURL?.absoluteString)! + name)!
+        self.url = URL(string: (NetManager.shared.primaryURL?.absoluteString)! + name)!
         
         // Set the parameters from the given dictionary.
         self.parameters = parameters != nil ? NetRequestParameters(dictionary: parameters!) : nil
@@ -241,7 +239,7 @@ public class NetRequest: NetRouteObject {
     public init(name: String, type: NetRequestType, parameters: NetRequestParameters, priority: NetRequestPriority = .medium) {
         
         // Set the URL by apending the method name to the deaful URL.
-        self.url = URL(string: (NetManager.sharedManager.primaryURL?.absoluteString)! + name)!
+        self.url = URL(string: (NetManager.shared.primaryURL?.absoluteString)! + name)!
         
         // Set the parameters from the given dictionary.
         self.parameters = parameters
@@ -279,24 +277,8 @@ public class NetRequest: NetRouteObject {
             request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
             request.httpMethod = type.rawValue
             
-            // Apply parameters to either to URL or to Body depending on type.
-            if parameters != nil {
-                switch type {
-                    
-                case .GET:
-                    
-                    // Add paraeters as a string to the HTTP URL.
-                    request.url = URL(string: url.absoluteString + "?" + parameters!.description)
-                    
-                case .POST, .PUT:
-                    
-                    // Add parameters to the body of HTTP method.
-                    request.httpBody = parameters!.description.data(using: String.Encoding.utf8)
-                }
-            }
-            
             // Check if the callback is nil.
-                
+            
             // Run the request with the provided callback.
             URLSession.shared.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
                 if completionHandler != nil {
@@ -348,7 +330,7 @@ public class NetRequest: NetRouteObject {
         
     }
     
-
+    
     
     // MARK: - Multipart/Form-Data
     
@@ -367,11 +349,12 @@ public class NetRequest: NetRouteObject {
     /// - Parameter image: An image to add.
     /// - Parameter filename: Filename of the image.
     
-    public func add(data: Data, filename: String, mimetype: String) {
+    public func add(data: Data, forField field: String, filename: String, mimetype: String) {
         
         /// Set the data and info.
         uploadData = data
         uploadFilename = filename
+        uploadFieldname = field
         
         self.mimetype = mimetype
     }

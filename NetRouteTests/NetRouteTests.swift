@@ -18,32 +18,38 @@
 //  limitations under the License.
 
 import XCTest
+import UIKit
 @testable import NetRoute
 
 class NetRouteTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        
+        let primaryUrlString = "https://example.com/"
+        
+        NetManager.shared.primaryURL = URL(string: primaryUrlString)!
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        
         super.tearDown()
     }
     
-    func testExample() {
+    func testExampleRequest() {
         
         let expectation = self.expectation(description: "Asyncronious operation")
     
-        let request = NetRequest(url: URL(string: "http://api.goforit.pro/User/Reg")!, type: .POST, parameters: ["login": "aKirill", "password": "ucpass", "email": "k.averkiv@goforit.pro", "dev_key": "wqxUY3nQMPq6YjIW", "server_name": "GOFORIT"])
+        let request = NetRequest(name: "TestMethod", type: .POST, parameters: ["foo": "bar"])
         
         request.run() { response in
-            print(response)
+            XCTAssert(response.error != nil, "Request has an error")
             expectation.fulfill()
         }
         
-        waitForExpectations(timeout: 30.0, handler: nil)
+        waitForExpectations(timeout: 30.0) { (error: Error?) in
+            XCTAssert(error != nil, "Request time exceeded.")
+        }
     }
     
 }

@@ -18,6 +18,7 @@
 //  limitations under the License.
 
 import Foundation
+import UIKit
 
 /// URL manager used to store the default url to the API.
 public class NetManager: NetRouteObject {
@@ -32,6 +33,6 @@ public class NetManager: NetRouteObject {
     public var primaryURL: URL?
     
     /// Singleton.
-    public static let sharedManager = NetManager()
+    public static let shared = NetManager()
     
 }

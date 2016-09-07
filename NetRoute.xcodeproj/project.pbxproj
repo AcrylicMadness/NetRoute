@@ -28,8 +28,8 @@
 		257BCE941CCE36B800DFF4E6 /* NetRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257BCE741CCE36B800DFF4E6 /* NetRequestType.swift */; };
 		257BCE951CCE36B800DFF4E6 /* NetResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257BCE751CCE36B800DFF4E6 /* NetResponse.swift */; };
 		257BCE961CCE36B800DFF4E6 /* NetResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257BCE751CCE36B800DFF4E6 /* NetResponse.swift */; };
-		257BCE9B1CCE36B800DFF4E6 /* NetURLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257BCE781CCE36B800DFF4E6 /* NetURLManager.swift */; };
-		257BCE9C1CCE36B800DFF4E6 /* NetURLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257BCE781CCE36B800DFF4E6 /* NetURLManager.swift */; };
+		257BCE9B1CCE36B800DFF4E6 /* NetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257BCE781CCE36B800DFF4E6 /* NetManager.swift */; };
+		257BCE9C1CCE36B800DFF4E6 /* NetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257BCE781CCE36B800DFF4E6 /* NetManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,7 +58,7 @@
 		257BCE731CCE36B800DFF4E6 /* NetRequestState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetRequestState.swift; sourceTree = "<group>"; };
 		257BCE741CCE36B800DFF4E6 /* NetRequestType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetRequestType.swift; sourceTree = "<group>"; };
 		257BCE751CCE36B800DFF4E6 /* NetResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetResponse.swift; sourceTree = "<group>"; };
-		257BCE781CCE36B800DFF4E6 /* NetURLManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetURLManager.swift; sourceTree = "<group>"; };
+		257BCE781CCE36B800DFF4E6 /* NetManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,7 +136,7 @@
 				2533D78A1CD69CBB00CCC7FF /* Request */,
 				2533D78B1CD69CD100CCC7FF /* Queueing */,
 				257BCE751CCE36B800DFF4E6 /* NetResponse.swift */,
-				257BCE781CCE36B800DFF4E6 /* NetURLManager.swift */,
+				257BCE781CCE36B800DFF4E6 /* NetManager.swift */,
 			);
 			path = NetRoute;
 			sourceTree = "<group>";
@@ -270,7 +270,7 @@
 				257BCE8F1CCE36B800DFF4E6 /* NetRequestQueueStatus.swift in Sources */,
 				257BCE8D1CCE36B800DFF4E6 /* NetRequestQueue.swift in Sources */,
 				257BCE8B1CCE36B800DFF4E6 /* NetRequestPriority.swift in Sources */,
-				257BCE9B1CCE36B800DFF4E6 /* NetURLManager.swift in Sources */,
+				257BCE9B1CCE36B800DFF4E6 /* NetManager.swift in Sources */,
 				257BCE931CCE36B800DFF4E6 /* NetRequestType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -286,7 +286,7 @@
 				257BCE5D1CCE363500DFF4E6 /* NetRouteTests.swift in Sources */,
 				257BCE961CCE36B800DFF4E6 /* NetResponse.swift in Sources */,
 				257BCE941CCE36B800DFF4E6 /* NetRequestType.swift in Sources */,
-				257BCE9C1CCE36B800DFF4E6 /* NetURLManager.swift in Sources */,
+				257BCE9C1CCE36B800DFF4E6 /* NetManager.swift in Sources */,
 				257BCE8E1CCE36B800DFF4E6 /* NetRequestQueue.swift in Sources */,
 				257BCE821CCE36B800DFF4E6 /* NetRouteObject.swift in Sources */,
 				257BCE8C1CCE36B800DFF4E6 /* NetRequestPriority.swift in Sources */,
