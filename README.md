@@ -41,11 +41,13 @@ goforit.pro/netroute
 import NetRoute
 
 // First step is to create the URL of the request.
-let requestUrl = URL(string: "https://httpbin.org/get")
+let requestUrl = URL(string: "https://httpbin.org/get")!
 
 // Here is where you run your request.
-NetRequest(url: requestUrl!, type: .GET).run()
+NetRequest(url: requestUrl, type: .GET).run()
 ```
+> When setting up the request URL be consider using `https` instead of `http`. Using unsecure connections is unreccomended by Apple and causes different problems with Application Transport Security.
+
 ### Handle the response
 
 ```swift
@@ -59,3 +61,4 @@ NetRequest(url: requestUrl!, type: .GET).run() { (response) in
     print(response)
 }
 ```
+> Note that requests are done in asynchronious way.
