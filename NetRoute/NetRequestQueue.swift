@@ -96,7 +96,7 @@ public class NetRequestQueue: NetRouteObject {
             }
             
             // Run the request remove it from the queue.
-            request.run(completionHandler: nil)
+            request.run()
             requestsInQueue.remove(at: requestsInQueue.index(of: request)!)
         }
         
