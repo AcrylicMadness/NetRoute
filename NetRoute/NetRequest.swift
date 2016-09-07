@@ -356,6 +356,7 @@ public class NetRequest: NetRouteObject {
         uploadFilename = filename
         uploadFieldname = field
         
+        // Set mimetype.
         self.mimetype = mimetype
     }
     
