@@ -182,7 +182,7 @@ public class NetRequest: NetRouteObject {
     /// - `High`:               Important UI-request.
     /// - `Backound`:           The request is a background task.
     
-    public init(url: URL, type: NetRequestType, parameters: Dictionary<String, String>?, priority: NetRequestPriority = .medium) {
+    public init(url: URL, type: NetRequestType, parameters: Dictionary<String, String>? = nil, priority: NetRequestPriority = .medium) {
         
         // Set the URL.
         self.url = url
@@ -210,7 +210,7 @@ public class NetRequest: NetRouteObject {
     /// - `High`:               Important UI-request.
     /// - `Backound`:           The request is a background task.
     
-    public init(name: String, type: NetRequestType, parameters: Dictionary<String, String>?, priority: NetRequestPriority = .medium) {
+    public init(name: String, type: NetRequestType, parameters: Dictionary<String, String>? = nil, priority: NetRequestPriority = .medium) {
         
         // Set the URL by apending the method name to the deaful URL.
         self.url = URL(string: (NetManager.shared.primaryURL?.absoluteString)! + name)!
@@ -238,7 +238,7 @@ public class NetRequest: NetRouteObject {
     /// - `High`:               Important UI-request.
     /// - `Backound`:           The request is a background task.
     
-    public init(name: String, type: NetRequestType, parameters: NetRequestParameters, priority: NetRequestPriority = .medium) {
+    public init(name: String, type: NetRequestType, parameters: NetRequestParameters? = nil, priority: NetRequestPriority = .medium) {
         
         // Set the URL by apending the method name to the deaful URL.
         self.url = URL(string: (NetManager.shared.primaryURL?.absoluteString)! + name)!
@@ -263,21 +263,29 @@ public class NetRequest: NetRouteObject {
     ///
     /// - Parameter completion: Callback that is called after request returned response.
     
-    public func run(completionHandler: ((_ response: NetResponse) -> Void)?) {
-        
+    public func run(completionHandler: ((_ response: NetResponse) -> Void)? = nil) {
+        print("running request")
+        if completionHandler != nil {
+            print("completion handler exsits")
+        } else {
+            print("completion handler is nil")
+        }
+        print("switching state")
         // Switch to prevent request execution when it is not on any queue.
         switch state {
             
         // Check if the request is on queue.
         case .unset:
-            
+            print("request is unset")
+            print("setting to executing")
             // Set state to avoid simultaneous requests.
             state = .executing
-            
+            print("running datatask with request")
             // Run the request with the provided callback is exists.
             URLSession.shared.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
                 if completionHandler != nil {
                     completionHandler?(NetResponse(data: data, response: response, error: error))
+                    print("LOLOLOL")
                 }
             }).resume()
             

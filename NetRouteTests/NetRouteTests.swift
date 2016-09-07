@@ -36,6 +36,19 @@ class NetRouteTests: XCTestCase {
         super.tearDown()
     }
     
+    func testMethod1() {
+        let expectation = self.expectation(description: "Asyncronious operation")
+        
+        NetRequest(url: URL(string: "https://ucmas.goforit.pro/News/Get")!, type: .GET).run { (response) in
+            print("Response: \(response.string!)")
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 30.0) { (error: Error?) in
+            XCTAssert(error != nil, "Request time exceeded.")
+        }
+    }
+    
     func testExampleRequest() {
         
         let expectation = self.expectation(description: "Asyncronious operation")
