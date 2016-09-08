@@ -30,6 +30,7 @@
 		257BCE961CCE36B800DFF4E6 /* NetResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257BCE751CCE36B800DFF4E6 /* NetResponse.swift */; };
 		257BCE9B1CCE36B800DFF4E6 /* NetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257BCE781CCE36B800DFF4E6 /* NetManager.swift */; };
 		257BCE9C1CCE36B800DFF4E6 /* NetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257BCE781CCE36B800DFF4E6 /* NetManager.swift */; };
+		25B9ABF31D8151350027FF67 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B9ABF21D8151350027FF67 /* Operators.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		257BCE741CCE36B800DFF4E6 /* NetRequestType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetRequestType.swift; sourceTree = "<group>"; };
 		257BCE751CCE36B800DFF4E6 /* NetResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetResponse.swift; sourceTree = "<group>"; };
 		257BCE781CCE36B800DFF4E6 /* NetManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetManager.swift; sourceTree = "<group>"; };
+		25B9ABF21D8151350027FF67 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +132,7 @@
 		257BCE4F1CCE363500DFF4E6 /* NetRoute */ = {
 			isa = PBXGroup;
 			children = (
+				25B9ABF41D8151390027FF67 /* Utils */,
 				257BCE501CCE363500DFF4E6 /* NetRoute.h */,
 				257BCE521CCE363500DFF4E6 /* Info.plist */,
 				2533D7891CD69C2900CCC7FF /* Core */,
@@ -164,6 +167,14 @@
 				257BCE781CCE36B800DFF4E6 /* NetManager.swift */,
 			);
 			name = Managers;
+			sourceTree = "<group>";
+		};
+		25B9ABF41D8151390027FF67 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				25B9ABF21D8151350027FF67 /* Operators.swift */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,6 +295,7 @@
 				257BCE851CCE36B800DFF4E6 /* NetRequest.swift in Sources */,
 				257BCE911CCE36B800DFF4E6 /* NetRequestState.swift in Sources */,
 				257BCE8F1CCE36B800DFF4E6 /* NetRequestQueueStatus.swift in Sources */,
+				25B9ABF31D8151350027FF67 /* Operators.swift in Sources */,
 				257BCE8D1CCE36B800DFF4E6 /* NetRequestQueue.swift in Sources */,
 				257BCE8B1CCE36B800DFF4E6 /* NetRequestPriority.swift in Sources */,
 				257BCE9B1CCE36B800DFF4E6 /* NetManager.swift in Sources */,

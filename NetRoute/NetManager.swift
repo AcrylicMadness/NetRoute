@@ -31,6 +31,9 @@ public class NetManager: NetRouteObject {
     /// URL to store.
     public var primaryURL: URL?
     
+    /// Additional parameters that are used by every request.
+    public static var additionalParameters: [String: String]?
+    
     /// Singleton.
     public static let shared = NetManager()
     
