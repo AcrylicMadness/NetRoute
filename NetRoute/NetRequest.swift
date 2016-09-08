@@ -107,7 +107,7 @@ public class NetRequest: NetRouteObject {
             // Prepare request dependong on its contents.
             switch type {
                 
-            case .GET:
+            case .get:
                 
                 if parameters != nil {
                     
@@ -115,7 +115,7 @@ public class NetRequest: NetRouteObject {
                     request.url = URL(string: url.absoluteString + "?" + parameters!.description)
                 }
                 
-            case .POST, .PUT:
+            case .post, .put:
                 
                 if uploadData == nil {
                     
@@ -123,7 +123,7 @@ public class NetRequest: NetRouteObject {
                         
                         print("parameters: \(parameters!)")
                         // Add parameters to the body of HTTP method.
-                        request.httpBody = parameters!.description.data(using: String.Encoding.utf8)
+                        request.httpBody = parameters!.description.data(using: .utf8)
                     }
                     
                 } else {
@@ -138,18 +138,18 @@ public class NetRequest: NetRouteObject {
                     
                     if parameters != nil {
                         for (key, value) in parameters!.dictionary {
-                            body.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
+                            body.append("--\(boundary)\r\n".data(using: .utf8)!)
                             body.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: .utf8)!)
-                            body.append("\(value)\r\n".data(using: String.Encoding.utf8)!)
+                            body.append("\(value)\r\n".data(using: .utf8)!)
                         }
                     }
                     
-                    body.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
-                    body.append("Content-Disposition: form-data; name=\"\(uploadFieldname)\"; filename=\"\(uploadFilename)\"\r\n".data(using: String.Encoding.utf8)!)
-                    body.append("Content-Type: \(mimetype)\r\n\r\n".data(using: String.Encoding.utf8)!)
+                    body.append("--\(boundary)\r\n".data(using: .utf8)!)
+                    body.append("Content-Disposition: form-data; name=\"\(uploadFieldname)\"; filename=\"\(uploadFilename)\"\r\n".data(using: .utf8)!)
+                    body.append("Content-Type: \(mimetype)\r\n\r\n".data(using: .utf8)!)
                     body.append(uploadData!)
-                    body.append("\r\n".data(using: String.Encoding.utf8)!)
-                    body.append("--\(boundary)--\r\n".data(using: String.Encoding.utf8)!)
+                    body.append("\r\n".data(using: .utf8)!)
+                    body.append("--\(boundary)--\r\n".data(using: .utf8)!)
                     
                     
                     

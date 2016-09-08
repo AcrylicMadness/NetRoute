@@ -23,12 +23,12 @@ import Foundation
 public enum NetRequestType: String {
     
     /// .GET request.
-    case GET
+    case get
     
     /// .POST request.
-    case POST
+    case post
     
     /// .PUT request.
-    case PUT
+    case put
     
 }

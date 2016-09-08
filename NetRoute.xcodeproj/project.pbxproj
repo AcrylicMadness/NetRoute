@@ -135,8 +135,8 @@
 				2533D7891CD69C2900CCC7FF /* Core */,
 				2533D78A1CD69CBB00CCC7FF /* Request */,
 				2533D78B1CD69CD100CCC7FF /* Queueing */,
-				257BCE751CCE36B800DFF4E6 /* NetResponse.swift */,
-				257BCE781CCE36B800DFF4E6 /* NetManager.swift */,
+				257C561D1D8030D9003D8173 /* Response */,
+				257C561E1D80315A003D8173 /* Managers */,
 			);
 			path = NetRoute;
 			sourceTree = "<group>";
@@ -148,6 +148,22 @@
 				257BCE5E1CCE363500DFF4E6 /* Info.plist */,
 			);
 			path = NetRouteTests;
+			sourceTree = "<group>";
+		};
+		257C561D1D8030D9003D8173 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				257BCE751CCE36B800DFF4E6 /* NetResponse.swift */,
+			);
+			name = Response;
+			sourceTree = "<group>";
+		};
+		257C561E1D80315A003D8173 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				257BCE781CCE36B800DFF4E6 /* NetManager.swift */,
+			);
+			name = Managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
