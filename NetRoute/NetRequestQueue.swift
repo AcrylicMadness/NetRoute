@@ -29,14 +29,14 @@ public class NetRequestQueue: NetRouteObject {
     
     
     /// Array of requests.
-    private var requestsInQueue: Array<NetRequest> = []
+    private var requests: Array<NetRequest> = []
     
     /// Status of the queue.
     private var status = NetRequestQueueStatus.stopped
     
     /// Descriprion for converting to string.
     public override var description: String {
-        return "\(requestsInQueue)"
+        return "\(requests)"
     }
     
     
@@ -59,13 +59,13 @@ public class NetRequestQueue: NetRouteObject {
             
             // If it is low, just add the request to the end of the queue.
             case .low:
-                requestsInQueue.append(request)
+                requests.append(request)
                 
             // Find a place to put the request depending on its priority.
             default:
                 
-                let index = getIndex(priority: request.priority)
-                requestsInQueue.insert(request, at: index)
+                let index = index(for: request.priority)
+                requests.insert(request, at: index)
             }
             
         } else {
@@ -80,7 +80,7 @@ public class NetRequestQueue: NetRouteObject {
     public func run() {
         
         // Get the request.
-        for request in requestsInQueue {
+        for request in requests {
             
             // Set the right executing status for the queue.
             switch request.priority {
@@ -96,8 +96,8 @@ public class NetRequestQueue: NetRouteObject {
             }
             
             // Run the request remove it from the queue.
-            request.run()
-            requestsInQueue.remove(at: requestsInQueue.index(of: request)!)
+            request.run(completionHandler: nil)
+            requests.remove(at: requests.index(of: request)!)
         }
         
         // Clear the status to make the queue reusable.
@@ -114,14 +114,14 @@ public class NetRequestQueue: NetRouteObject {
     /// - Parameter priority: Priority that is used to find the right position.
     /// - Returns: An index of the requests array to insert the request with given priority.
     
-    private func getIndex(priority: NetRequestPriority) -> Int {
+    private func index(for priority: NetRequestPriority) -> Int {
         
         // A flag to know when the place is found.
         var found = false
         
         // Do the search.
-        for index in 0..<requestsInQueue.count {
-            if requestsInQueue[index].priority.rawValue < priority.rawValue {
+        for index in 0..<requests.count {
+            if requests[index].priority.rawValue < priority.rawValue {
                 found = true
                 return index
             }
@@ -129,7 +129,7 @@ public class NetRequestQueue: NetRouteObject {
         
         // Handle if a place not found.
         if !found {
-            return requestsInQueue.count - 1
+            return requests.count - 1
         }
         
     }

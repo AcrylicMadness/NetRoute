@@ -20,7 +20,7 @@
 import Foundation
 
 /// Parameters for the request.
-public class NetRequestParameters: NetRouteObject {
+open class NetRequestParameters: NetRouteObject {
     
     
     
@@ -36,7 +36,7 @@ public class NetRequestParameters: NetRouteObject {
     public var dictionary: Dictionary<String, String>
     
     /// Custom string that can be appended to URL in `.GET` requests.
-    override public var description: String {
+    override open var description: String {
         
         // Return HTML-standard parameters string.
         return dictionary.map { "\($0.0)=\($0.1)" }.joined(separator: "&")

@@ -119,7 +119,7 @@ public class NetResponse: NetRouteObject {
     /// - Parameter forHeader: Name of the header.
     ///
     /// - Returns: Value for provided header. Nil if no response or the provided header is wrong.
-    public func value(forHeader header: String) -> Any? {
+    public func value(for header: String) -> Any? {
         if let response = httpResponse as? HTTPURLResponse {
             return response.allHeaderFields[header]
         } else {
@@ -132,7 +132,7 @@ public class NetResponse: NetRouteObject {
     /// - Parameter forHeader: Name of the header.
     ///
     /// - Returns: String for provided header converted to String. Nil if no response, the provided header is wrong or the data cannot be converted to String.
-    public func string(forHeader header: String) -> String? {
+    public func string(for header: String) -> String? {
         return self.value(forHeader: header) as? String
 
     }

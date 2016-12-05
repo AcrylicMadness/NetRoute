@@ -20,7 +20,7 @@
 import Foundation
 
 /// Base NetRoute class.
-public class NetRouteObject: NSObject {
+open class NetRouteObject: NSObject {
     
     // Base class for NetRoute objects.
     

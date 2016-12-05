@@ -26,7 +26,7 @@ class NetRouteTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        let primaryUrlString = "https://testdomain.com/"
+        let primaryUrlString = "http://ucmas.goforit.pro/"
         
         NetManager.shared.primaryURL = URL(string: primaryUrlString)!
     }
@@ -36,21 +36,23 @@ class NetRouteTests: XCTestCase {
         super.tearDown()
     }
     
-    func testOperators() {
-        let a = ["foo": "bar"]
-        let b = ["hello": "world"]
-        print(a + b)
-    }
+
     
     func testExampleRequest() {
         
         let expectation = self.expectation(description: "Asyncronious operation")
     
-        let request = NetRequest(name: "News/Get", type: .get, parameters: ["foo": "bar"])
+        let request = NetRequest(name: "Test/TaskCompleted", type: .post, parameters: ["token": "megatoken", "id": "2", "dev_key": "testdevkey", "server_name": "UCMAS", "level": "1"])
         
         request.run() { response in
-            print(response.string(forHeader: "Content-Type"))
+            
+            print(response.stringValue!)
+            
             if response.error != nil {
+                print("-------")
+                print(response.stringValue)
+                
+            } else {
                 XCTAssertNil((response.error! as NSError).localizedDescription)
             }
             expectation.fulfill()
